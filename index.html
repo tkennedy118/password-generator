@@ -62,12 +62,11 @@
                 </div>
                 <!-- area for output -->
                 <div class="form-group">
-                    <label for="passwordOutput">Example textarea</label>
-                    <textarea class="form-control" id="passwordOutput" rows="3"></textarea>
+                    <textarea readonly id="passwordOut" class="form-control" type="text" placeholder="Your secure password" aria-label="Generate Password"></textarea>
                 </div>
 
                 <!-- button to generate password -->
-                <button type="submit" class="btn btn-primary">Generate</button>
+                <button id="generateBtn" type="button" class="btn btn-primary">Generate</button>
             </form>
 
         </main>
@@ -77,6 +76,9 @@
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   	<!-- Bootstrap's javascript file that allows the dropdown menu to work  -->
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    <!-- Link to script.js -->
+    <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
