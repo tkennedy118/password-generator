@@ -4,21 +4,25 @@ var generateBtnEl = document.querySelector("#generateBtn");
 // store html checkbox elements in variable
 var checkboxesEl = document.querySelectorAll(".form-check-input");
 
-// store html password length element in variable
-var passwordLengthEl = document.querySelector("#inputNumChars");
-
 // store html textarea in variable
 var passwordOutEl = document.querySelector("passwordOut");
+
+// store html password length element in variable
+var passwordLengthEl = document.querySelector("#passwordLength");
+var passwordLength = passwordLengthEl.firstElementChild.textContent;
+
+
+
 
 /* function to display generated password into textarea */
 function writePassword() {
     
     event.preventDefault();
 
+    var passwordText = document.querySelector("#passwordOut");
+
     // generate password
     var password = generatePassword();
-
-    var passwordText = document.querySelector("#passwordOut");
 
     // display output 
     if (password !== false) {
@@ -50,8 +54,6 @@ function generatePassword() {
     // get password length
     var passwordLength = 9;
 
-
-
     // fill chosenChars array with selected character values
     for (var i = 0; i < possibleChars.length; i++) {
 
@@ -71,11 +73,9 @@ function generatePassword() {
     
     // exit functoin if no checkboxes are checked
     if (criteriaMet === false) {
-        console.log("no checkboxes checked");
         return false;
     }
     
-
     // generate the password
     for (var i = 0; i < passwordLength; i++) {
 
@@ -88,10 +88,20 @@ function generatePassword() {
     return password;
 }
 
+// function sets length of password
+function setPasswordLength(event) {
+
+    var length = event.target.value;
+
+    passwordLength = length;
+}
+
 // add event listener to generate button
 generateBtnEl.addEventListener("click", writePassword);
 
 // add event listener to password length options
-// passwordLengthEl.addEventListener("change", getPasswordLength(event));
+passwordLengthEl.addEventListener("change", setPasswordLength);
+
+
 
 
