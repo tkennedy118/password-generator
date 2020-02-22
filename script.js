@@ -13,12 +13,19 @@ var passwordOutEl = document.querySelector("passwordOut");
 /* function to display generated password into textarea */
 function writePassword() {
     
+    event.preventDefault();
+
     // generate password
     var password = generatePassword();
 
     var passwordText = document.querySelector("#passwordOut");
 
-    passwordText.value = password;
+    // display output 
+    if (password !== false) {
+        passwordText.value = password;
+    } else {
+        passwordText.value = "";
+    }
 }
 
 /* function to generate random password based on user-selected criteria */
@@ -43,25 +50,31 @@ function generatePassword() {
     // get password length
     var passwordLength = 9;
 
-    while (!criteriaMet) {
 
-        // fill chosenChars array with selected character values
-        for (var i = 0; i < possibleChars.length; i++) {
 
-            // true if checkbox value is checked
-            var isChecked = checkboxesEl[i].checked;
-            
-            if (isChecked) {
+    // fill chosenChars array with selected character values
+    for (var i = 0; i < possibleChars.length; i++) {
 
-                for (var j = 0; j < possibleChars[i].length; j++) {
-                    chosenChars += possibleChars[i][j];
-                }
+        // true if checkbox value is checked
+        var isChecked = checkboxesEl[i].checked;
+        
+        if (isChecked) {
 
-                criteriaMet = true;
-            } 
-        }
-        // if criteria not met, display it in the bootstrap css   
+            for (var j = 0; j < possibleChars[i].length; j++) {
+                chosenChars += possibleChars[i][j];
+            }
+
+            // criteria was met
+            criteriaMet = true;
+        } 
     }
+    
+    // exit functoin if no checkboxes are checked
+    if (criteriaMet === false) {
+        console.log("no checkboxes checked");
+        return false;
+    }
+    
 
     // generate the password
     for (var i = 0; i < passwordLength; i++) {
