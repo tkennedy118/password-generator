@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.checkbox-invalid {
+    display: block;
+    width: 100%;
+    padding-left: 15px;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
