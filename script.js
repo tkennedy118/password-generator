@@ -9,7 +9,11 @@ var passwordOutEl = document.querySelector("passwordOut");
 
 // store html password length element in variable
 var passwordLengthEl = document.querySelector("#passwordLength");
-var passwordLength = passwordLengthEl.firstElementChild.textContent;
+
+// GLOBAL VARIABLES
+var passwordLength = 0;
+var MIN = 8;
+var MAX = 128;
 
 
 /* function to display generated password into textarea */
@@ -36,6 +40,7 @@ function generatePassword() {
     /* LOCAL VARIABLES */
     var password = "";
     var criteriaMet = false;
+    var chosenChars = "";           // will contain all chosen characters
     
     // nested array of possible characters
     var possibleChars = 
@@ -44,13 +49,7 @@ function generatePassword() {
             ["abcdefghijklmnopqrstuvwxyz"],
             ["0123456789"],
             ["!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"]
-        ];     
-
-    // will contain all chosen characters
-    var chosenChars = "";      
-
-    // get password length
-    var passwordLength = 9;
+        ];         
 
     // fill chosenChars array with selected character values
     for (var i = 0; i < possibleChars.length; i++) {
@@ -69,19 +68,11 @@ function generatePassword() {
         } 
     }
 
-    console.log("before function");
-    
-    // exit functoin if no checkboxes are checked
-    if (criteriaMet === false) {
-        
-        console.log("inside false");
-        // run function to make user aware
-        displayValidity(criteriaMet);
+    // display error message if criteria are not met, then exit funcion if they are not met
+    displayValidity(criteriaMet);
 
+    if (criteriaMet === false) {
         return false;
-    } else {
-        console.log("inside true");
-        displayValidity(criteriaMet);
     }
     
     // generate the password
@@ -96,7 +87,7 @@ function generatePassword() {
     return password;
 }
 
-// function sets length of password
+// function sets length of password, triggered when change event occurs on passwordLengthEl
 function setPasswordLength(event) {
 
     var length = event.target.value;
@@ -118,8 +109,38 @@ function displayValidity(criteriaMet) {
     }
 }
 
-// add event listener to generate button
+// function to add values to dropdown element
+function populateOptions(min, max) {
+
+    // exit function if min isn't less than max
+    if (min > max) {
+        return false
+    } 
+
+    // populate options from min value to max value
+    for (var i = min; i <= max; i++) {
+
+        // create option element
+        var optionEl = document.createElement("option");
+
+        optionEl.textContent = i.toString();
+        passwordLengthEl.appendChild(optionEl);
+
+        // make lowest value selected automatically
+        if (i === min) {
+            optionEl.classList.add("selected");
+        }
+    }
+
+    // set password length
+    passwordLength = passwordLengthEl.firstElementChild.textContent;
+}
+
+// add event listener to generate button element
 generateBtnEl.addEventListener("click", writePassword);
 
-// add event listener to password length options
+// add event listener to password length element
 passwordLengthEl.addEventListener("change", setPasswordLength);
+
+// run code to populate options in dropdown
+populateOptions(MIN, MAX);
