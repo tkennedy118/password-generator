@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+body {
+    background-color: #e4e4e4;
+}
+
 .checkbox-invalid {
     display: block;
     width: 100%;
