@@ -26,11 +26,24 @@ function writePassword() {
     // generate password
     var password = generatePassword();
 
-    // display output 
+    // clear current password value
+    passwordText.value = "";
+
+    // dispay output
     if (password !== false) {
-        passwordText.value = password;
-    } else {
-        passwordText.value = "";
+        // local index for looping through interval
+        var i = 0;
+
+        var populatePassword = setInterval(function() {
+
+            passwordText.value += password[i];
+            i++;
+
+            // exit interval if password length has been met
+            if (i === password.length) {
+                clearInterval(populatePassword);
+            }
+        }, 37);
     }
 }
 
